@@ -159,6 +159,45 @@ main {
   border-radius: 50%;
 }
 
+/* Weight scale */
+.weight-scale {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 1rem;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.weight-scale-label {
+  font-weight: 500;
+}
+
+.weight-scale-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.weight-line {
+  display: inline-block;
+  width: 24px;
+  border-radius: 1px;
+  background: var(--text-secondary);
+}
+
+.weight-line.thin {
+  height: 1px;
+}
+
+.weight-line.medium {
+  height: 3px;
+}
+
+.weight-line.thick {
+  height: 6px;
+}
+
 /* Chart container */
 .view-layout {
   display: grid;
