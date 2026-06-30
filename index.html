@@ -24,10 +24,10 @@
       <div class="view-header">
         <h2>Interaction Network</h2>
       </div>
-      <p class="view-description">Each circle is a person. Lines connect people who worked together during Q2. Thicker lines mean they collaborated more often. An "interaction day" is any working day where two people connected through Slack, Figma, meetings, or project tools. Hover over someone to highlight their connections, or hover a team name above to focus on that group.</p>
+      <p class="view-description">Each circle is a person. Lines connect people who worked together during Q2. Thicker lines mean they collaborated more often. Hover over someone to highlight their connections, or hover a team name above to focus on that group.</p>
       <div class="legend" id="network-legend"></div>
       <div class="weight-scale">
-        <span class="weight-scale-label">Edge weight (interaction days):</span>
+        <span class="weight-scale-label">Line weight (days connected):</span>
         <span class="weight-scale-item"><span class="weight-line thin"></span> 1–15 (monthly)</span>
         <span class="weight-scale-item"><span class="weight-line medium"></span> 16–35 (weekly)</span>
         <span class="weight-scale-item"><span class="weight-line thick"></span> 36–65 (daily)</span>
@@ -45,7 +45,7 @@
       <div class="view-header">
         <h2>Team-to-Team Interaction Density</h2>
       </div>
-      <p class="view-description">How much do teams talk to each other? Each cell shows the total interaction days between two teams over the quarter. Darker = more collaboration. Light or empty cells point to teams that rarely connect.</p>
+      <p class="view-description">How much do teams talk to each other? Each cell shows the total days connected between two teams over the quarter. Darker = more collaboration. Light or empty cells point to teams that rarely connect.</p>
       <div class="view-layout">
         <div class="chart-container" id="heatmap-chart"></div>
         <aside class="analysis-panel" id="heatmap-analysis">

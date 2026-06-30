@@ -512,18 +512,18 @@ function generateInsights(links, nodes) {
   const density = (links.length / maxPossibleEdges * 100).toFixed(1);
 
   const insights = [
-    `<strong>Network density:</strong> ${density}% of possible connections exist (${links.length} edges, ${nodes.length} nodes)`,
-    `<strong>Avg. connections per person:</strong> ${avgDegree}`,
-    `<strong>Top connectors:</strong> ${top3.join(', ')}`,
-    `<strong>Cross-functional:</strong> ${crossTeam.length} of ${links.length} connections (${Math.round(crossTeam.length / links.length * 100)}%) span team boundaries`,
-    `<strong>Most external team:</strong> ${mostExternal.team} — ${Math.round(mostExternal.ratio * 100)}% of their connections are cross-team (${mostExternal.count} links)`,
-    `<strong>Most insular team:</strong> ${leastExternal.team} — only ${Math.round(leastExternal.ratio * 100)}% cross-team (${leastExternal.count} links)`,
+    `<strong>How connected are we?</strong> Only ${density}% of all possible connections actually exist — there's room to grow`,
+    `<strong>Average:</strong> Each person works with about ${avgDegree} others`,
+    `<strong>Most connected people:</strong> ${top3.join(', ')}`,
+    `<strong>Working across teams:</strong> ${Math.round(crossTeam.length / links.length * 100)}% of all connections are between different teams (${crossTeam.length} of ${links.length})`,
+    `<strong>Best at reaching out:</strong> ${mostExternal.team} — ${Math.round(mostExternal.ratio * 100)}% of their work is with other teams`,
+    `<strong>Most inward-looking:</strong> ${leastExternal.team} — only ${Math.round(leastExternal.ratio * 100)}% of their work is with other teams`,
     bridgeNodes.length > 0
-      ? `<strong>Critical connectors:</strong> ${bridgeNodes.map(p => p.name).join(', ')} — each bridges 3+ teams`
-      : '<strong>No critical connectors</strong> detected',
+      ? `<strong>Key people holding teams together:</strong> ${bridgeNodes.map(p => p.name).join(', ')} — each connects 3 or more different teams`
+      : '<strong>No one person</strong> is the sole link between multiple teams',
     isolated.length > 0
-      ? `<strong>At risk of isolation:</strong> ${isolated.map(p => `${p.name} (${p.team})`).join(', ')} — ≤2 connections each`
-      : '<strong>No isolated individuals</strong> detected',
+      ? `<strong>May need more support:</strong> ${isolated.map(p => `${p.name} (${p.team})`).join(', ')} — only working with 1–2 people`
+      : '<strong>Everyone</strong> has at least a few connections',
   ];
 
   insights.forEach(text => {
@@ -746,18 +746,18 @@ function generateHeatmapInsights(matrix) {
   }).sort((a, b) => a.score - b.score);
 
   const insights = [
-    `<strong>Strongest cross-team link:</strong> ${strongest.a} ↔ ${strongest.b} (${strongest.value} interactions)`,
-    `<strong>Weakest cross-team link:</strong> ${weakest.a} ↔ ${weakest.b} (${weakest.value} interactions)`,
-    `<strong>Median pair intensity:</strong> ${median.a} ↔ ${median.b} (${median.value})`,
-    `<strong>Internal vs. external:</strong> ${Math.round(internalTotal / (crossTotal + internalTotal) * 100)}% of all communication stays within teams`,
-    `<strong>Most internally focused:</strong> ${isolationScores[0].team} — ${Math.round((1 - isolationScores[0].score) * 100)}% of interactions are internal`,
-    `<strong>Most externally engaged:</strong> ${isolationScores[isolationScores.length - 1].team} — ${Math.round(isolationScores[isolationScores.length - 1].score * 100)}% cross-team`,
-    `<strong>Highest internal volume:</strong> ${internal[0].team} (${internal[0].value}) vs. lowest: ${internal[internal.length - 1].team} (${internal[internal.length - 1].value})`,
-    `<strong>Most outreach:</strong> ${teamExternal[0].team} (${teamExternal[0].external} cross-team interactions)`,
+    `<strong>Strongest partnership:</strong> ${strongest.a} and ${strongest.b} collaborate the most (${strongest.value} days connected)`,
+    `<strong>Weakest link:</strong> ${weakest.a} and ${weakest.b} barely work together (${weakest.value} days connected)`,
+    `<strong>Typical pair:</strong> ${median.a} and ${median.b} are in the middle (${median.value} days)`,
+    `<strong>Staying in-house:</strong> ${Math.round(internalTotal / (crossTotal + internalTotal) * 100)}% of all collaboration happens within the same team`,
+    `<strong>Most self-contained:</strong> ${isolationScores[0].team} — ${Math.round((1 - isolationScores[0].score) * 100)}% of their work stays internal`,
+    `<strong>Most collaborative outside their team:</strong> ${isolationScores[isolationScores.length - 1].team} — ${Math.round(isolationScores[isolationScores.length - 1].score * 100)}% of their work is with other teams`,
+    `<strong>Busiest internal team:</strong> ${internal[0].team} (${internal[0].value} days) vs. quietest: ${internal[internal.length - 1].team} (${internal[internal.length - 1].value} days)`,
+    `<strong>Reaching out most:</strong> ${teamExternal[0].team} with ${teamExternal[0].external} days of cross-team collaboration`,
   ];
 
   if (asymmetries.length > 0) {
-    insights.push(`<strong>Directional imbalance:</strong> ${asymmetries[0].initiator} initiates ${asymmetries[0].ratio}× more contact with ${asymmetries[0].receiver} than the reverse`);
+    insights.push(`<strong>One-sided relationship:</strong> ${asymmetries[0].initiator} reaches out to ${asymmetries[0].receiver} ${asymmetries[0].ratio}× more than the other way around`);
   }
 
   insights.forEach(text => {
@@ -982,7 +982,7 @@ function buildQuadrant() {
         <ul>
           <li>${d.degree} connections</li>
           <li>${Math.round(d.crossTeamRatio * 100)}% cross-team</li>
-          <li>${d.totalWeight} interaction days</li>
+          <li>${d.totalWeight} days connected</li>
         </ul>`);
     })
     .on('mousemove', (event, d) => {
@@ -1035,25 +1035,25 @@ function generateQuadrantInsights(metrics, medianDegree, medianRatio) {
   }
 
   const insights = [
-    `<strong>Critical Connectors (${quadrantMap['Critical Connectors'].length}):</strong> ${quadrantMap['Critical Connectors'].map(d => d.name).join(', ') || 'None'}`,
-    `<strong>Internal Anchors (${quadrantMap['Internal Anchors'].length}):</strong> ${quadrantMap['Internal Anchors'].map(d => d.name).join(', ') || 'None'}`,
-    `<strong>Quiet Bridges (${quadrantMap['Quiet Bridges'].length}):</strong> ${quadrantMap['Quiet Bridges'].map(d => d.name).join(', ') || 'None'}`,
-    `<strong>At Risk (${quadrantMap['At Risk'].length}):</strong> ${quadrantMap['At Risk'].map(d => d.name).join(', ') || 'None'}`,
+    `<strong>Critical Connectors (${quadrantMap['Critical Connectors'].length}):</strong> Well-connected and work across many teams — ${quadrantMap['Critical Connectors'].map(d => d.name).join(', ') || 'None'}`,
+    `<strong>Internal Anchors (${quadrantMap['Internal Anchors'].length}):</strong> Know lots of people, mostly on their own team — ${quadrantMap['Internal Anchors'].map(d => d.name).join(', ') || 'None'}`,
+    `<strong>Quiet Bridges (${quadrantMap['Quiet Bridges'].length}):</strong> Don't have many connections, but the ones they have are mostly outside their team — ${quadrantMap['Quiet Bridges'].map(d => d.name).join(', ') || 'None'}`,
+    `<strong>At Risk (${quadrantMap['At Risk'].length}):</strong> Few connections, mostly within their own team — may be flying under the radar — ${quadrantMap['At Risk'].map(d => d.name).join(', ') || 'None'}`,
   ];
 
   if (burnoutRisk.length > 0) {
-    insights.push(`<strong>Burnout watch:</strong> ${burnoutRisk.map(d => `${d.name} (${d.totalWeight} days)`).join(', ')} — highest workload among critical connectors`);
+    insights.push(`<strong>Watch for burnout:</strong> ${burnoutRisk.map(d => `${d.name} (${d.totalWeight} days)`).join(', ')} — these people are doing the most cross-team work`);
   }
 
   // Actions
   if (quadrantMap['At Risk'].length > 0) {
-    insights.push(`<strong>Action — At Risk:</strong> Consider pairing ${quadrantMap['At Risk'][0].name} with a senior cross-team connector to broaden exposure`);
+    insights.push(`<strong>Suggestion:</strong> Pair someone like ${quadrantMap['At Risk'][0].name} with a more connected colleague to help them build relationships`);
   }
   if (quadrantMap['Quiet Bridges'].length > 0) {
-    insights.push(`<strong>Action — Quiet Bridges:</strong> ${quadrantMap['Quiet Bridges'][0].name} maintains cross-team links with few connections — recognize and protect this role`);
+    insights.push(`<strong>Suggestion:</strong> People like ${quadrantMap['Quiet Bridges'][0].name} are quietly keeping teams connected — make sure that work is recognized`);
   }
   if (quadrantMap['Internal Anchors'].length > 0) {
-    insights.push(`<strong>Action — Internal Anchors:</strong> ${quadrantMap['Internal Anchors'][0].name} is well-connected internally — create opportunities for cross-team collaboration`);
+    insights.push(`<strong>Suggestion:</strong> ${quadrantMap['Internal Anchors'][0].name} has strong internal relationships — they'd benefit from more cross-team projects`);
   }
 
   // Team concentration
