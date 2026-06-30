@@ -38,7 +38,6 @@ Design doesn't happen in isolation — but collaboration isn't evenly distribute
 ### Visualization Approach
 - **Primary:** Force-directed network graph (nodes = people, edges = interactions)
 - **Secondary:** Heatmap of team-to-team interaction density
-- **Supporting:** Small multiples comparing network shape across quarters or projects
 
 ---
 

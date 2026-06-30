@@ -16,41 +16,34 @@
   <nav class="view-tabs">
     <button class="tab active" data-view="network">Network Graph</button>
     <button class="tab" data-view="heatmap">Team Heatmap</button>
-    <button class="tab" data-view="quarters">Quarterly View</button>
   </nav>
 
   <main>
     <section id="network" class="view active">
       <div class="view-header">
         <h2>Interaction Network</h2>
-        <div class="controls">
-          <label>
-            <span>Min. connections</span>
-            <input type="range" id="edge-threshold" min="1" max="10" value="1">
-            <output id="threshold-value">1</output>
-          </label>
-        </div>
       </div>
       <div class="legend" id="network-legend"></div>
-      <div class="chart-container" id="network-chart"></div>
-      <aside class="insight-panel" id="network-insight">
-        <h3>Insights</h3>
-        <ul id="insight-list"></ul>
-      </aside>
+      <div class="view-layout">
+        <div class="chart-container" id="network-chart"></div>
+        <aside class="analysis-panel" id="network-analysis">
+          <h3>Analysis</h3>
+          <ul id="insight-list"></ul>
+        </aside>
+      </div>
     </section>
 
     <section id="heatmap" class="view">
       <div class="view-header">
         <h2>Team-to-Team Interaction Density</h2>
       </div>
-      <div class="chart-container" id="heatmap-chart"></div>
-    </section>
-
-    <section id="quarters" class="view">
-      <div class="view-header">
-        <h2>Network Shape by Quarter</h2>
+      <div class="view-layout">
+        <div class="chart-container" id="heatmap-chart"></div>
+        <aside class="analysis-panel" id="heatmap-analysis">
+          <h3>Analysis</h3>
+          <ul id="heatmap-insight-list"></ul>
+        </aside>
       </div>
-      <div class="small-multiples" id="quarters-chart"></div>
     </section>
   </main>
 

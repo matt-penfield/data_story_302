@@ -12,35 +12,73 @@ const teamColors = {
 };
 
 const people = [
-  // Design
+  // Design (18 people)
   { id: 'D1', name: 'Alex Chen', team: 'Design', role: 'Lead' },
   { id: 'D2', name: 'Maya Patel', team: 'Design', role: 'Senior' },
   { id: 'D3', name: 'Jordan Kim', team: 'Design', role: 'Mid' },
   { id: 'D4', name: 'Sam Torres', team: 'Design', role: 'Junior' },
   { id: 'D5', name: 'Riley Nguyen', team: 'Design', role: 'Senior' },
   { id: 'D6', name: 'Casey Wright', team: 'Design', role: 'Mid' },
-  // Engineering
+  { id: 'D7', name: 'Morgan Liu', team: 'Design', role: 'Senior' },
+  { id: 'D8', name: 'Harper Jones', team: 'Design', role: 'Mid' },
+  { id: 'D9', name: 'Quinn Foster', team: 'Design', role: 'Junior' },
+  { id: 'D10', name: 'Avery Mitchell', team: 'Design', role: 'Mid' },
+  { id: 'D11', name: 'Drew Sato', team: 'Design', role: 'Senior' },
+  { id: 'D12', name: 'Skyler Okafor', team: 'Design', role: 'Junior' },
+  { id: 'D13', name: 'Reese Andersen', team: 'Design', role: 'Mid' },
+  { id: 'D14', name: 'Jamie Volkov', team: 'Design', role: 'Senior' },
+  { id: 'D15', name: 'Sage Ramirez', team: 'Design', role: 'Mid' },
+  { id: 'D16', name: 'Blake Herrera', team: 'Design', role: 'Junior' },
+  { id: 'D17', name: 'Finley Cho', team: 'Design', role: 'Mid' },
+  { id: 'D18', name: 'Rowan Beck', team: 'Design', role: 'Senior' },
+  // Engineering (15 people)
   { id: 'E1', name: 'Priya Sharma', team: 'Engineering', role: 'Lead' },
   { id: 'E2', name: 'Liam O\'Brien', team: 'Engineering', role: 'Senior' },
   { id: 'E3', name: 'Zoe Martinez', team: 'Engineering', role: 'Senior' },
   { id: 'E4', name: 'Noah Park', team: 'Engineering', role: 'Mid' },
   { id: 'E5', name: 'Ava Johnson', team: 'Engineering', role: 'Mid' },
-  // Product
+  { id: 'E6', name: 'Marcus Webb', team: 'Engineering', role: 'Senior' },
+  { id: 'E7', name: 'Isla Fernandez', team: 'Engineering', role: 'Mid' },
+  { id: 'E8', name: 'Theo Nakamura', team: 'Engineering', role: 'Junior' },
+  { id: 'E9', name: 'Nadia Petrov', team: 'Engineering', role: 'Senior' },
+  { id: 'E10', name: 'Oscar Lindqvist', team: 'Engineering', role: 'Mid' },
+  { id: 'E11', name: 'Fatima Al-Hassan', team: 'Engineering', role: 'Mid' },
+  { id: 'E12', name: 'Caleb Russo', team: 'Engineering', role: 'Junior' },
+  { id: 'E13', name: 'Yuki Tanaka', team: 'Engineering', role: 'Senior' },
+  { id: 'E14', name: 'Dani Okoye', team: 'Engineering', role: 'Mid' },
+  { id: 'E15', name: 'Leo Chang', team: 'Engineering', role: 'Junior' },
+  // Product (9 people)
   { id: 'P1', name: 'Ethan Brooks', team: 'Product', role: 'Director' },
   { id: 'P2', name: 'Olivia Reed', team: 'Product', role: 'Senior PM' },
   { id: 'P3', name: 'Lucas Huang', team: 'Product', role: 'PM' },
-  // Research
+  { id: 'P4', name: 'Mia Johansson', team: 'Product', role: 'Senior PM' },
+  { id: 'P5', name: 'Isaac Delgado', team: 'Product', role: 'PM' },
+  { id: 'P6', name: 'Clara Fontaine', team: 'Product', role: 'PM' },
+  { id: 'P7', name: 'Ravi Kapoor', team: 'Product', role: 'Associate PM' },
+  { id: 'P8', name: 'Hannah Vogel', team: 'Product', role: 'Senior PM' },
+  { id: 'P9', name: 'Tomas Silva', team: 'Product', role: 'PM' },
+  // Research (9 people)
   { id: 'R1', name: 'Sofia Andersson', team: 'Research', role: 'Lead' },
   { id: 'R2', name: 'Kai Nakamura', team: 'Research', role: 'Senior' },
   { id: 'R3', name: 'Emma Davis', team: 'Research', role: 'Mid' },
-  // Ops
+  { id: 'R4', name: 'Omar Farid', team: 'Research', role: 'Senior' },
+  { id: 'R5', name: 'Lena Kowalski', team: 'Research', role: 'Mid' },
+  { id: 'R6', name: 'Aiden Ng', team: 'Research', role: 'Junior' },
+  { id: 'R7', name: 'Vera Ivanovic', team: 'Research', role: 'Senior' },
+  { id: 'R8', name: 'Jun Watanabe', team: 'Research', role: 'Mid' },
+  { id: 'R9', name: 'Amara Osei', team: 'Research', role: 'Mid' },
+  // Ops (6 people)
   { id: 'O1', name: 'Chris Lopez', team: 'Ops', role: 'Manager' },
   { id: 'O2', name: 'Taylor Smith', team: 'Ops', role: 'Coordinator' },
+  { id: 'O3', name: 'Robin Adler', team: 'Ops', role: 'Coordinator' },
+  { id: 'O4', name: 'Jesse Moreau', team: 'Ops', role: 'Analyst' },
+  { id: 'O5', name: 'Dana Kemp', team: 'Ops', role: 'Coordinator' },
+  { id: 'O6', name: 'Nico Bianchi', team: 'Ops', role: 'Analyst' },
 ];
 
 // Generate interaction edges with weights
 const interactions = [
-  // Heavy Design internal
+  // Design internal — dense cluster
   { source: 'D1', target: 'D2', weight: 18 },
   { source: 'D1', target: 'D3', weight: 14 },
   { source: 'D2', target: 'D3', weight: 12 },
@@ -48,44 +86,125 @@ const interactions = [
   { source: 'D3', target: 'D4', weight: 7 },
   { source: 'D5', target: 'D6', weight: 11 },
   { source: 'D4', target: 'D6', weight: 4 },
+  { source: 'D7', target: 'D2', weight: 13 },
+  { source: 'D7', target: 'D8', weight: 10 },
+  { source: 'D8', target: 'D9', weight: 6 },
+  { source: 'D10', target: 'D11', weight: 14 },
+  { source: 'D10', target: 'D7', weight: 8 },
+  { source: 'D11', target: 'D12', weight: 5 },
+  { source: 'D13', target: 'D14', weight: 12 },
+  { source: 'D13', target: 'D5', weight: 7 },
+  { source: 'D14', target: 'D15', weight: 9 },
+  { source: 'D15', target: 'D16', weight: 4 },
+  { source: 'D17', target: 'D18', weight: 11 },
+  { source: 'D17', target: 'D1', weight: 6 },
+  { source: 'D18', target: 'D11', weight: 8 },
+  { source: 'D9', target: 'D12', weight: 3 },
+  { source: 'D16', target: 'D4', weight: 2 },
   // Design ↔ Engineering
   { source: 'D1', target: 'E1', weight: 15 },
   { source: 'D2', target: 'E2', weight: 10 },
   { source: 'D3', target: 'E3', weight: 6 },
   { source: 'D5', target: 'E4', weight: 3 },
   { source: 'D1', target: 'E3', weight: 5 },
+  { source: 'D7', target: 'E6', weight: 9 },
+  { source: 'D8', target: 'E7', weight: 7 },
+  { source: 'D10', target: 'E9', weight: 6 },
+  { source: 'D11', target: 'E13', weight: 11 },
+  { source: 'D14', target: 'E2', weight: 5 },
+  { source: 'D18', target: 'E6', weight: 4 },
+  { source: 'D15', target: 'E10', weight: 3 },
   // Design ↔ Product
   { source: 'D1', target: 'P1', weight: 16 },
   { source: 'D1', target: 'P2', weight: 12 },
   { source: 'D2', target: 'P2', weight: 8 },
   { source: 'D5', target: 'P3', weight: 5 },
+  { source: 'D7', target: 'P4', weight: 10 },
+  { source: 'D10', target: 'P5', weight: 7 },
+  { source: 'D13', target: 'P6', weight: 6 },
+  { source: 'D14', target: 'P8', weight: 8 },
+  { source: 'D17', target: 'P9', weight: 4 },
   // Design ↔ Research
   { source: 'D2', target: 'R1', weight: 11 },
   { source: 'D3', target: 'R2', weight: 7 },
   { source: 'D6', target: 'R3', weight: 2 },
+  { source: 'D8', target: 'R4', weight: 8 },
+  { source: 'D10', target: 'R5', weight: 5 },
+  { source: 'D13', target: 'R7', weight: 6 },
+  { source: 'D15', target: 'R8', weight: 3 },
   // Engineering internal
   { source: 'E1', target: 'E2', weight: 14 },
   { source: 'E1', target: 'E3', weight: 12 },
   { source: 'E2', target: 'E4', weight: 8 },
   { source: 'E3', target: 'E5', weight: 9 },
   { source: 'E4', target: 'E5', weight: 6 },
+  { source: 'E6', target: 'E7', weight: 13 },
+  { source: 'E6', target: 'E1', weight: 10 },
+  { source: 'E7', target: 'E8', weight: 7 },
+  { source: 'E9', target: 'E10', weight: 11 },
+  { source: 'E9', target: 'E6', weight: 8 },
+  { source: 'E10', target: 'E11', weight: 9 },
+  { source: 'E11', target: 'E12', weight: 5 },
+  { source: 'E13', target: 'E14', weight: 12 },
+  { source: 'E13', target: 'E1', weight: 7 },
+  { source: 'E14', target: 'E15', weight: 6 },
+  { source: 'E15', target: 'E8', weight: 4 },
   // Engineering ↔ Product
   { source: 'E1', target: 'P1', weight: 13 },
   { source: 'E2', target: 'P2', weight: 7 },
   { source: 'E3', target: 'P3', weight: 5 },
+  { source: 'E6', target: 'P4', weight: 9 },
+  { source: 'E9', target: 'P5', weight: 6 },
+  { source: 'E13', target: 'P8', weight: 8 },
+  { source: 'E14', target: 'P9', weight: 4 },
+  // Product internal
+  { source: 'P1', target: 'P2', weight: 16 },
+  { source: 'P1', target: 'P4', weight: 12 },
+  { source: 'P2', target: 'P3', weight: 9 },
+  { source: 'P4', target: 'P5', weight: 11 },
+  { source: 'P5', target: 'P6', weight: 7 },
+  { source: 'P6', target: 'P7', weight: 5 },
+  { source: 'P8', target: 'P1', weight: 14 },
+  { source: 'P8', target: 'P9', weight: 8 },
+  { source: 'P9', target: 'P7', weight: 4 },
   // Research internal
   { source: 'R1', target: 'R2', weight: 15 },
   { source: 'R1', target: 'R3', weight: 10 },
   { source: 'R2', target: 'R3', weight: 8 },
+  { source: 'R4', target: 'R5', weight: 12 },
+  { source: 'R4', target: 'R1', weight: 9 },
+  { source: 'R5', target: 'R6', weight: 6 },
+  { source: 'R7', target: 'R8', weight: 11 },
+  { source: 'R7', target: 'R1', weight: 7 },
+  { source: 'R8', target: 'R9', weight: 8 },
+  { source: 'R9', target: 'R6', weight: 4 },
   // Research ↔ Product
   { source: 'R1', target: 'P2', weight: 6 },
-  // Ops connections (sparse — silo signal)
-  { source: 'O1', target: 'P1', weight: 9 },
-  { source: 'O1', target: 'D1', weight: 4 },
-  { source: 'O2', target: 'O1', weight: 12 },
-  { source: 'O2', target: 'D4', weight: 2 },
-  // Sam Torres is relatively isolated
+  // Ops internal (tight cluster)
+  { source: 'O1', target: 'O2', weight: 12 },
+  { source: 'O1', target: 'O3', weight: 10 },
+  { source: 'O2', target: 'O3', weight: 8 },
+  { source: 'O3', target: 'O4', weight: 9 },
+  { source: 'O4', target: 'O5', weight: 7 },
+  { source: 'O5', target: 'O6', weight: 11 },
+  { source: 'O6', target: 'O1', weight: 6 },
+  { source: 'O4', target: 'O6', weight: 5 },
+  // Ops cross-team (well-connected to Product and Engineering)
+  { source: 'O1', target: 'P1', weight: 14 },
+  { source: 'O1', target: 'P4', weight: 10 },
+  { source: 'O1', target: 'D1', weight: 8 },
+  { source: 'O2', target: 'E1', weight: 9 },
+  { source: 'O2', target: 'P2', weight: 7 },
+  { source: 'O3', target: 'E8', weight: 6 },
+  { source: 'O3', target: 'E9', weight: 5 },
+  { source: 'O4', target: 'P7', weight: 8 },
+  { source: 'O5', target: 'D7', weight: 6 },
+  { source: 'O6', target: 'E14', weight: 4 },
+  // Isolated individuals
   { source: 'D4', target: 'D1', weight: 3 },
+  { source: 'D16', target: 'D9', weight: 2 },
+  { source: 'E12', target: 'E15', weight: 3 },
+  { source: 'R6', target: 'R3', weight: 3 },
 ];
 
 // Quarterly data (simplified subsets)
@@ -110,7 +229,6 @@ tabs.forEach(tab => {
     tab.classList.add('active');
     document.getElementById(tab.dataset.view).classList.add('active');
     if (tab.dataset.view === 'heatmap') buildHeatmap();
-    if (tab.dataset.view === 'quarters') buildQuarterly();
   });
 });
 
@@ -120,8 +238,8 @@ tabs.forEach(tab => {
 
 const tooltip = document.getElementById('tooltip');
 
-function showTooltip(evt, text) {
-  tooltip.textContent = text;
+function showTooltip(evt, html) {
+  tooltip.innerHTML = html;
   tooltip.classList.add('visible');
   tooltip.style.left = evt.clientX + 12 + 'px';
   tooltip.style.top = evt.clientY - 8 + 'px';
@@ -135,26 +253,15 @@ function hideTooltip() {
 // Network Graph
 // ============================================================
 
-function buildNetworkGraph(threshold = 1) {
+function buildNetworkGraph() {
   const container = document.getElementById('network-chart');
   container.innerHTML = '';
 
   const width = container.clientWidth;
-  const height = container.clientHeight || 500;
+  const height = container.clientHeight || 700;
 
-  // Count connections per person
-  const degree = {};
-  people.forEach(p => { degree[p.id] = 0; });
-  interactions.forEach(l => { degree[l.source]++; degree[l.target]++; });
-
-  // Filter to people with at least `threshold` connections
-  const visibleIds = new Set(people.filter(p => degree[p.id] >= threshold).map(p => p.id));
-
-  const filteredLinks = interactions
-    .filter(d => visibleIds.has(d.source) && visibleIds.has(d.target))
-    .map(d => ({ ...d }));
-
-  const nodes = people.filter(p => visibleIds.has(p.id)).map(d => ({ ...d }));
+  const filteredLinks = interactions.map(d => ({ ...d }));
+  const nodes = people.map(d => ({ ...d }));
 
   const svg = d3.select(container)
     .append('svg')
@@ -198,6 +305,17 @@ function buildNetworkGraph(threshold = 1) {
       })
     );
 
+  function buildNodeTooltip(d) {
+    const connections = filteredLinks.filter(l => l.source.id === d.id || l.target.id === d.id);
+    const connList = connections
+      .map(l => {
+        const other = l.source.id === d.id ? l.target : l.source;
+        return `<li>${other.name} <span class="tt-meta">${other.team}</span></li>`;
+      })
+      .join('');
+    return `<strong>${d.name}</strong><span class="tt-meta">${d.team} · ${d.role}</span><ul>${connList}</ul>`;
+  }
+
   node.append('circle')
     .attr('r', d => d.role === 'Lead' || d.role === 'Director' ? 10 : 7)
     .attr('fill', d => teamColors[d.team])
@@ -209,7 +327,7 @@ function buildNetworkGraph(threshold = 1) {
       link.classed('dimmed', l => l.source.id !== d.id && l.target.id !== d.id);
       link.classed('highlighted', l => l.source.id === d.id || l.target.id === d.id);
 
-      showTooltip(event, `${d.name} · ${d.team} · ${d.role} · ${connections.length} connections`);
+      showTooltip(event, buildNodeTooltip(d));
     })
     .on('mouseout', () => {
       node.classed('dimmed', false);
@@ -218,8 +336,7 @@ function buildNetworkGraph(threshold = 1) {
       hideTooltip();
     })
     .on('mousemove', (event, d) => {
-      const connections = filteredLinks.filter(l => l.source.id === d.id || l.target.id === d.id);
-      showTooltip(event, `${d.name} · ${d.team} · ${d.role} · ${connections.length} connections`);
+      showTooltip(event, buildNodeTooltip(d));
     });
 
   node.append('text')
@@ -245,7 +362,7 @@ function generateInsights(links, nodes) {
   const list = document.getElementById('insight-list');
   list.innerHTML = '';
 
-  // Find bridge nodes (high betweenness approximation)
+  // Degree per node
   const connectionCount = {};
   nodes.forEach(n => { connectionCount[n.id] = 0; });
   links.forEach(l => {
@@ -254,7 +371,13 @@ function generateInsights(links, nodes) {
   });
 
   const sorted = Object.entries(connectionCount).sort((a, b) => b[1] - a[1]);
-  const topBridge = people.find(p => p.id === sorted[0][0]);
+  const avgDegree = (sorted.reduce((sum, [, c]) => sum + c, 0) / sorted.length).toFixed(1);
+
+  // Top 3 connectors
+  const top3 = sorted.slice(0, 3).map(([id, count]) => {
+    const p = people.find(pp => pp.id === id);
+    return `${p.name} (${count})`;
+  });
 
   // Cross-team connections
   const crossTeam = links.filter(l => {
@@ -263,17 +386,62 @@ function generateInsights(links, nodes) {
     return s && t && s.team !== t.team;
   });
 
-  // Isolated nodes
+  // Cross-team ratio per team
+  const teamCrossCount = {};
+  const teamTotalCount = {};
+  teams.forEach(t => { teamCrossCount[t] = 0; teamTotalCount[t] = 0; });
+  links.forEach(l => {
+    const s = people.find(p => p.id === (l.source.id || l.source));
+    const t = people.find(p => p.id === (l.target.id || l.target));
+    if (s) { teamTotalCount[s.team]++; if (t && s.team !== t.team) teamCrossCount[s.team]++; }
+    if (t) { teamTotalCount[t.team]++; if (s && s.team !== t.team) teamCrossCount[t.team]++; }
+  });
+
+  // Most and least externally connected teams
+  const teamCrossRatio = teams.map(t => ({
+    team: t,
+    ratio: teamTotalCount[t] > 0 ? teamCrossCount[t] / teamTotalCount[t] : 0,
+    count: teamCrossCount[t]
+  })).sort((a, b) => b.ratio - a.ratio);
+
+  const mostExternal = teamCrossRatio[0];
+  const leastExternal = teamCrossRatio[teamCrossRatio.length - 1];
+
+  // Isolated nodes (≤2 connections)
   const lowConnection = sorted.filter(([, count]) => count <= 2);
   const isolated = lowConnection.map(([id]) => people.find(p => p.id === id)).filter(Boolean);
 
+  // Single points of failure: nodes that if removed would disconnect clusters
+  const bridgeNodes = sorted.filter(([id, count]) => {
+    if (count < 4) return false;
+    const p = people.find(pp => pp.id === id);
+    const nodeLinks = links.filter(l => (l.source.id || l.source) === id || (l.target.id || l.target) === id);
+    const connectedTeams = new Set();
+    nodeLinks.forEach(l => {
+      const otherId = (l.source.id || l.source) === id ? (l.target.id || l.target) : (l.source.id || l.source);
+      const other = people.find(pp => pp.id === otherId);
+      if (other && other.team !== p.team) connectedTeams.add(other.team);
+    });
+    return connectedTeams.size >= 3;
+  }).map(([id]) => people.find(p => p.id === id));
+
+  // Network density
+  const maxPossibleEdges = nodes.length * (nodes.length - 1) / 2;
+  const density = (links.length / maxPossibleEdges * 100).toFixed(1);
+
   const insights = [
-    `<strong>${topBridge.name}</strong> is the top bridge connector with ${sorted[0][1]} active links`,
-    `${crossTeam.length} of ${links.length} connections are cross-functional (${Math.round(crossTeam.length / links.length * 100)}%)`,
+    `<strong>Network density:</strong> ${density}% of possible connections exist (${links.length} edges, ${nodes.length} nodes)`,
+    `<strong>Avg. connections per person:</strong> ${avgDegree}`,
+    `<strong>Top connectors:</strong> ${top3.join(', ')}`,
+    `<strong>Cross-functional:</strong> ${crossTeam.length} of ${links.length} connections (${Math.round(crossTeam.length / links.length * 100)}%) span team boundaries`,
+    `<strong>Most external team:</strong> ${mostExternal.team} — ${Math.round(mostExternal.ratio * 100)}% of their connections are cross-team (${mostExternal.count} links)`,
+    `<strong>Most insular team:</strong> ${leastExternal.team} — only ${Math.round(leastExternal.ratio * 100)}% cross-team (${leastExternal.count} links)`,
+    bridgeNodes.length > 0
+      ? `<strong>Single points of failure:</strong> ${bridgeNodes.map(p => p.name).join(', ')} — each bridges 3+ teams`
+      : '<strong>No single points of failure</strong> detected',
     isolated.length > 0
-      ? `Potential silos: ${isolated.map(p => p.name).join(', ')} (≤2 connections)`
-      : 'No isolated individuals detected at this threshold',
-    `Ops team has the fewest cross-team connections — potential organizational silo`,
+      ? `<strong>At risk of isolation:</strong> ${isolated.map(p => `${p.name} (${p.team})`).join(', ')} — ≤2 connections each`
+      : '<strong>No isolated individuals</strong> detected',
   ];
 
   insights.forEach(text => {
@@ -287,8 +455,49 @@ function generateInsights(links, nodes) {
 function buildLegend() {
   const container = document.getElementById('network-legend');
   container.innerHTML = teams.map(t =>
-    `<span class="legend-item"><span class="legend-dot" style="background:${teamColors[t]}"></span>${t}</span>`
+    `<span class="legend-item" data-team="${t}"><span class="legend-dot" style="background:${teamColors[t]}"></span>${t}</span>`
   ).join('');
+
+  container.querySelectorAll('.legend-item').forEach(item => {
+    item.addEventListener('mouseenter', () => {
+      const team = item.dataset.team;
+      const svg = document.querySelector('#network-chart svg');
+      if (!svg) return;
+      const nodeGroups = svg.querySelectorAll('.node');
+      const links = svg.querySelectorAll('.link');
+
+      const teamNodeIds = new Set(people.filter(p => p.team === team).map(p => p.id));
+
+      nodeGroups.forEach(g => {
+        const d = d3.select(g).datum();
+        if (teamNodeIds.has(d.id)) {
+          g.classList.remove('dimmed');
+        } else {
+          g.classList.add('dimmed');
+        }
+      });
+
+      links.forEach(l => {
+        const d = d3.select(l).datum();
+        if (teamNodeIds.has(d.source.id) || teamNodeIds.has(d.target.id)) {
+          l.classList.remove('dimmed');
+          l.classList.add('highlighted');
+        } else {
+          l.classList.add('dimmed');
+          l.classList.remove('highlighted');
+        }
+      });
+    });
+
+    item.addEventListener('mouseleave', () => {
+      const svg = document.querySelector('#network-chart svg');
+      if (!svg) return;
+      svg.querySelectorAll('.node').forEach(g => g.classList.remove('dimmed'));
+      svg.querySelectorAll('.link').forEach(l => {
+        l.classList.remove('dimmed', 'highlighted');
+      });
+    });
+  });
 }
 
 
@@ -388,6 +597,92 @@ function buildHeatmap() {
     .attr('font-size', '11px')
     .attr('fill', d => d.value > maxVal * 0.6 ? '#fff' : '#666')
     .text(d => d.value || '');
+
+  // Generate heatmap insights
+  generateHeatmapInsights(matrix);
+}
+
+function generateHeatmapInsights(matrix) {
+  const list = document.getElementById('heatmap-insight-list');
+  list.innerHTML = '';
+
+  // Cross-team pairs sorted
+  const pairs = [];
+  for (let i = 0; i < teams.length; i++) {
+    for (let j = i + 1; j < teams.length; j++) {
+      pairs.push({ a: teams[i], b: teams[j], value: matrix[teams[i]][teams[j]] });
+    }
+  }
+  pairs.sort((a, b) => b.value - a.value);
+
+  const strongest = pairs[0];
+  const weakest = pairs[pairs.length - 1];
+  const median = pairs[Math.floor(pairs.length / 2)];
+
+  // Internal connectivity
+  const internal = teams.map(t => ({ team: t, value: matrix[t][t] }));
+  internal.sort((a, b) => b.value - a.value);
+
+  // Total cross-team vs internal
+  let crossTotal = 0, internalTotal = 0;
+  teams.forEach(a => {
+    teams.forEach(b => {
+      if (a === b) internalTotal += matrix[a][b];
+      else crossTotal += matrix[a][b];
+    });
+  });
+
+  // Team external totals
+  const teamExternal = teams.map(t => {
+    let ext = 0;
+    teams.forEach(other => { if (other !== t) ext += matrix[t][other]; });
+    return { team: t, external: ext };
+  }).sort((a, b) => b.external - a.external);
+
+  // Asymmetry detection (where A→B differs significantly from B→A)
+  const asymmetries = [];
+  for (let i = 0; i < teams.length; i++) {
+    for (let j = i + 1; j < teams.length; j++) {
+      const ab = matrix[teams[i]][teams[j]];
+      const ba = matrix[teams[j]][teams[i]];
+      if (ab > 0 && ba > 0) {
+        const ratio = Math.max(ab, ba) / Math.min(ab, ba);
+        if (ratio > 1.5) {
+          const initiator = ab > ba ? teams[i] : teams[j];
+          const receiver = ab > ba ? teams[j] : teams[i];
+          asymmetries.push({ initiator, receiver, ratio: ratio.toFixed(1) });
+        }
+      }
+    }
+  }
+
+  // Isolation score per team (external / total)
+  const isolationScores = teams.map(t => {
+    const total = internal.find(x => x.team === t).value + teamExternal.find(x => x.team === t).external;
+    const extRatio = total > 0 ? teamExternal.find(x => x.team === t).external / total : 0;
+    return { team: t, score: extRatio };
+  }).sort((a, b) => a.score - b.score);
+
+  const insights = [
+    `<strong>Strongest cross-team link:</strong> ${strongest.a} ↔ ${strongest.b} (${strongest.value} interactions)`,
+    `<strong>Weakest cross-team link:</strong> ${weakest.a} ↔ ${weakest.b} (${weakest.value} interactions)`,
+    `<strong>Median pair intensity:</strong> ${median.a} ↔ ${median.b} (${median.value})`,
+    `<strong>Internal vs. external:</strong> ${Math.round(internalTotal / (crossTotal + internalTotal) * 100)}% of all communication stays within teams`,
+    `<strong>Most internally focused:</strong> ${isolationScores[0].team} — ${Math.round((1 - isolationScores[0].score) * 100)}% of interactions are internal`,
+    `<strong>Most externally engaged:</strong> ${isolationScores[isolationScores.length - 1].team} — ${Math.round(isolationScores[isolationScores.length - 1].score * 100)}% cross-team`,
+    `<strong>Highest internal volume:</strong> ${internal[0].team} (${internal[0].value}) vs. lowest: ${internal[internal.length - 1].team} (${internal[internal.length - 1].value})`,
+    `<strong>Most outreach:</strong> ${teamExternal[0].team} (${teamExternal[0].external} cross-team interactions)`,
+  ];
+
+  if (asymmetries.length > 0) {
+    insights.push(`<strong>Directional imbalance:</strong> ${asymmetries[0].initiator} initiates ${asymmetries[0].ratio}× more contact with ${asymmetries[0].receiver} than the reverse`);
+  }
+
+  insights.forEach(text => {
+    const li = document.createElement('li');
+    li.innerHTML = text;
+    list.appendChild(li);
+  });
 }
 
 // ============================================================
@@ -471,14 +766,5 @@ function buildMiniNetwork(svgId, density) {
 // ============================================================
 
 buildLegend();
-// Threshold slider
-const slider = document.getElementById('edge-threshold');
-const output = document.getElementById('threshold-value');
-slider.addEventListener('input', () => {
-  output.textContent = slider.value;
-  buildNetworkGraph(+slider.value);
-});
-
-buildNetworkGraph(1);
+buildNetworkGraph();
 buildHeatmap();
-buildQuarterly();
