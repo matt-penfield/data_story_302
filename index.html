@@ -24,7 +24,7 @@
       <div class="view-header">
         <h2>Interaction Network</h2>
       </div>
-      <p class="view-description">A force-directed graph of 57 people across 5 teams. Each node is a person; lines between them represent collaboration. Thicker lines = more interaction days — the number of distinct working days (out of 65 in Q2) where two people had at least one touchpoint via Slack, Figma, calendar, or project tools. Hover a node to see their connections; hover a team name to isolate that group.</p>
+      <p class="view-description">Each circle is a person. Lines connect people who worked together during Q2. Thicker lines mean they collaborated more often. An "interaction day" is any working day where two people connected through Slack, Figma, meetings, or project tools. Hover over someone to highlight their connections, or hover a team name above to focus on that group.</p>
       <div class="legend" id="network-legend"></div>
       <div class="weight-scale">
         <span class="weight-scale-label">Edge weight (interaction days):</span>
@@ -45,7 +45,7 @@
       <div class="view-header">
         <h2>Team-to-Team Interaction Density</h2>
       </div>
-      <p class="view-description">A matrix showing total interaction days between each pair of teams. Each cell sums all pairwise connections between members of those two teams over 65 working days in Q2. Darker cells indicate stronger collaboration channels; light cells reveal weak or missing cross-team links.</p>
+      <p class="view-description">How much do teams talk to each other? Each cell shows the total interaction days between two teams over the quarter. Darker = more collaboration. Light or empty cells point to teams that rarely connect.</p>
       <div class="view-layout">
         <div class="chart-container" id="heatmap-chart"></div>
         <aside class="analysis-panel" id="heatmap-analysis">
@@ -59,7 +59,7 @@
       <div class="view-header">
         <h2>Collaboration Profile</h2>
       </div>
-      <p class="view-description">Each dot is one person, positioned by total connections (x-axis) and the percentage of those connections that cross team boundaries (y-axis). Dot size reflects total interaction days — the number of working days with any touchpoint. Four quadrants identify distinct collaboration patterns and suggest targeted actions.</p>
+      <p class="view-description">Each dot is one person. The further right they are, the more people they work with. The higher up, the more of those connections are outside their own team. Bigger dots mean more total collaboration days. The four quadrants help identify who’s overloaded, who’s isolated, and who’s quietly holding teams together.</p>
       <div class="view-layout">
         <div class="chart-container" id="quadrant-chart"></div>
         <aside class="analysis-panel" id="quadrant-analysis">

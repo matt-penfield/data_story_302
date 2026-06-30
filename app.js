@@ -82,133 +82,210 @@ const people = [
 
 // Generate interaction edges with weights (interaction days over Q2 2026)
 const interactions = [
-  // Design internal — dense cluster
+  // === CRITICAL CONNECTORS (high degree, high cross-team ratio) ===
+  // D1 Alex Chen — 11 connections, 8 cross-team (73%)
   { source: 'D1', target: 'D2', weight: 54 },
   { source: 'D1', target: 'D3', weight: 42 },
-  { source: 'D2', target: 'D3', weight: 36 },
-  { source: 'D2', target: 'D5', weight: 27 },
-  { source: 'D3', target: 'D4', weight: 21 },
-  { source: 'D5', target: 'D6', weight: 33 },
-  { source: 'D4', target: 'D6', weight: 12 },
-  { source: 'D7', target: 'D2', weight: 39 },
-  { source: 'D7', target: 'D8', weight: 30 },
-  { source: 'D8', target: 'D9', weight: 18 },
-  { source: 'D10', target: 'D11', weight: 42 },
-  { source: 'D10', target: 'D7', weight: 24 },
-  { source: 'D11', target: 'D12', weight: 15 },
-  { source: 'D13', target: 'D14', weight: 36 },
-  { source: 'D13', target: 'D5', weight: 21 },
-  { source: 'D14', target: 'D15', weight: 27 },
-  { source: 'D15', target: 'D16', weight: 12 },
-  { source: 'D17', target: 'D18', weight: 33 },
-  { source: 'D17', target: 'D1', weight: 18 },
-  { source: 'D18', target: 'D11', weight: 24 },
-  { source: 'D9', target: 'D12', weight: 9 },
-  { source: 'D16', target: 'D4', weight: 6 },
-  // Design ↔ Engineering
+  { source: 'D1', target: 'D17', weight: 18 },
   { source: 'D1', target: 'E1', weight: 45 },
-  { source: 'D2', target: 'E2', weight: 30 },
-  { source: 'D3', target: 'E3', weight: 18 },
-  { source: 'D5', target: 'E4', weight: 9 },
   { source: 'D1', target: 'E3', weight: 15 },
-  { source: 'D7', target: 'E6', weight: 27 },
-  { source: 'D8', target: 'E7', weight: 21 },
-  { source: 'D10', target: 'E9', weight: 18 },
-  { source: 'D11', target: 'E13', weight: 33 },
-  { source: 'D14', target: 'E2', weight: 15 },
-  { source: 'D18', target: 'E6', weight: 12 },
-  { source: 'D15', target: 'E10', weight: 9 },
-  // Design ↔ Product
   { source: 'D1', target: 'P1', weight: 48 },
   { source: 'D1', target: 'P2', weight: 36 },
-  { source: 'D2', target: 'P2', weight: 24 },
-  { source: 'D5', target: 'P3', weight: 15 },
-  { source: 'D7', target: 'P4', weight: 30 },
-  { source: 'D10', target: 'P5', weight: 21 },
-  { source: 'D13', target: 'P6', weight: 18 },
-  { source: 'D14', target: 'P8', weight: 24 },
-  { source: 'D17', target: 'P9', weight: 12 },
-  // Design ↔ Research
-  { source: 'D2', target: 'R1', weight: 33 },
-  { source: 'D3', target: 'R2', weight: 21 },
-  { source: 'D6', target: 'R3', weight: 6 },
-  { source: 'D8', target: 'R4', weight: 24 },
-  { source: 'D10', target: 'R5', weight: 15 },
-  { source: 'D13', target: 'R7', weight: 18 },
-  { source: 'D15', target: 'R8', weight: 9 },
-  // Engineering internal
+  { source: 'D1', target: 'O1', weight: 24 },
+  { source: 'D1', target: 'R1', weight: 21 },
+  { source: 'D1', target: 'E6', weight: 12 },
+  { source: 'D1', target: 'P4', weight: 18 },
+  // E1 Priya Sharma — 10 connections, 6 cross-team (60%)
   { source: 'E1', target: 'E2', weight: 42 },
   { source: 'E1', target: 'E3', weight: 36 },
-  { source: 'E2', target: 'E4', weight: 24 },
-  { source: 'E3', target: 'E5', weight: 27 },
-  { source: 'E4', target: 'E5', weight: 18 },
-  { source: 'E6', target: 'E7', weight: 39 },
-  { source: 'E6', target: 'E1', weight: 30 },
-  { source: 'E7', target: 'E8', weight: 21 },
-  { source: 'E9', target: 'E10', weight: 33 },
-  { source: 'E9', target: 'E6', weight: 24 },
-  { source: 'E10', target: 'E11', weight: 27 },
-  { source: 'E11', target: 'E12', weight: 15 },
-  { source: 'E13', target: 'E14', weight: 36 },
-  { source: 'E13', target: 'E1', weight: 21 },
-  { source: 'E14', target: 'E15', weight: 18 },
-  { source: 'E15', target: 'E8', weight: 12 },
-  // Engineering ↔ Product
+  { source: 'E1', target: 'E6', weight: 30 },
+  { source: 'E1', target: 'E13', weight: 21 },
   { source: 'E1', target: 'P1', weight: 39 },
-  { source: 'E2', target: 'P2', weight: 21 },
-  { source: 'E3', target: 'P3', weight: 15 },
-  { source: 'E6', target: 'P4', weight: 27 },
-  { source: 'E9', target: 'P5', weight: 18 },
-  { source: 'E13', target: 'P8', weight: 24 },
-  { source: 'E14', target: 'P9', weight: 12 },
-  // Product internal
+  { source: 'E1', target: 'O2', weight: 27 },
+  // P1 Ethan Brooks — 9 connections, 6 cross-team (67%)
   { source: 'P1', target: 'P2', weight: 48 },
   { source: 'P1', target: 'P4', weight: 36 },
-  { source: 'P2', target: 'P3', weight: 27 },
-  { source: 'P4', target: 'P5', weight: 33 },
-  { source: 'P5', target: 'P6', weight: 21 },
-  { source: 'P6', target: 'P7', weight: 15 },
-  { source: 'P8', target: 'P1', weight: 42 },
-  { source: 'P8', target: 'P9', weight: 24 },
-  { source: 'P9', target: 'P7', weight: 12 },
-  // Research internal
-  { source: 'R1', target: 'R2', weight: 45 },
-  { source: 'R1', target: 'R3', weight: 30 },
-  { source: 'R2', target: 'R3', weight: 24 },
-  { source: 'R4', target: 'R5', weight: 36 },
-  { source: 'R4', target: 'R1', weight: 27 },
-  { source: 'R5', target: 'R6', weight: 18 },
-  { source: 'R7', target: 'R8', weight: 33 },
-  { source: 'R7', target: 'R1', weight: 21 },
-  { source: 'R8', target: 'R9', weight: 24 },
-  { source: 'R9', target: 'R6', weight: 12 },
-  // Research ↔ Product
-  { source: 'R1', target: 'P2', weight: 18 },
-  // Ops internal (tight cluster)
+  { source: 'P1', target: 'P8', weight: 42 },
+  { source: 'P1', target: 'O1', weight: 42 },
+  // O1 Chris Lopez — 9 connections, 6 cross-team (67%)
   { source: 'O1', target: 'O2', weight: 36 },
   { source: 'O1', target: 'O3', weight: 30 },
-  { source: 'O2', target: 'O3', weight: 24 },
-  { source: 'O3', target: 'O4', weight: 27 },
-  { source: 'O4', target: 'O5', weight: 21 },
-  { source: 'O5', target: 'O6', weight: 33 },
-  { source: 'O6', target: 'O1', weight: 18 },
-  { source: 'O4', target: 'O6', weight: 15 },
-  // Ops cross-team (well-connected to Product and Engineering)
-  { source: 'O1', target: 'P1', weight: 42 },
+  { source: 'O1', target: 'O6', weight: 18 },
   { source: 'O1', target: 'P4', weight: 30 },
-  { source: 'O1', target: 'D1', weight: 24 },
-  { source: 'O2', target: 'E1', weight: 27 },
-  { source: 'O2', target: 'P2', weight: 21 },
+  { source: 'O1', target: 'E9', weight: 15 },
+  // D7 Morgan Liu — 8 connections, 5 cross-team (63%)
+  { source: 'D7', target: 'D2', weight: 39 },
+  { source: 'D7', target: 'D8', weight: 30 },
+  { source: 'D7', target: 'D10', weight: 24 },
+  { source: 'D7', target: 'E6', weight: 27 },
+  { source: 'D7', target: 'P4', weight: 30 },
+  { source: 'D7', target: 'R4', weight: 18 },
+  { source: 'D7', target: 'O5', weight: 18 },
+  { source: 'D7', target: 'E9', weight: 12 },
+
+  // === INTERNAL ANCHORS (high degree, low cross-team ratio) ===
+  // D2 Maya Patel — 8 connections, 2 cross-team (25%)
+  { source: 'D2', target: 'D3', weight: 36 },
+  { source: 'D2', target: 'D5', weight: 27 },
+  { source: 'D2', target: 'D13', weight: 21 },
+  { source: 'D2', target: 'D14', weight: 18 },
+  { source: 'D2', target: 'D18', weight: 15 },
+  { source: 'D2', target: 'E2', weight: 30 },
+  // E6 Marcus Webb — 8 connections, 2 cross-team (25%)
+  { source: 'E6', target: 'E7', weight: 39 },
+  { source: 'E6', target: 'E9', weight: 24 },
+  { source: 'E6', target: 'E10', weight: 18 },
+  { source: 'E6', target: 'E11', weight: 15 },
+  { source: 'E6', target: 'P4', weight: 27 },
+  // R1 Sofia Andersson — 8 connections, 2 cross-team (25%)
+  { source: 'R1', target: 'R2', weight: 45 },
+  { source: 'R1', target: 'R3', weight: 30 },
+  { source: 'R1', target: 'R4', weight: 27 },
+  { source: 'R1', target: 'R7', weight: 21 },
+  { source: 'R1', target: 'R9', weight: 12 },
+  { source: 'R1', target: 'P2', weight: 18 },
+  // E13 Yuki Tanaka — 7 connections, 2 cross-team (29%)
+  { source: 'E13', target: 'E14', weight: 36 },
+  { source: 'E13', target: 'E15', weight: 18 },
+  { source: 'E13', target: 'E2', weight: 21 },
+  { source: 'E13', target: 'E4', weight: 15 },
+  { source: 'E13', target: 'D11', weight: 33 },
+  { source: 'E13', target: 'P8', weight: 24 },
+  // P8 Hannah Vogel — 6 connections, 2 cross-team (33%)
+  { source: 'P8', target: 'P9', weight: 24 },
+  { source: 'P8', target: 'P5', weight: 18 },
+  { source: 'P8', target: 'P2', weight: 30 },
+  { source: 'P8', target: 'D14', weight: 24 },
+  // D10 Avery Mitchell — 7 connections, 2 cross-team (29%)
+  { source: 'D10', target: 'D11', weight: 42 },
+  { source: 'D10', target: 'D13', weight: 18 },
+  { source: 'D10', target: 'D15', weight: 12 },
+  { source: 'D10', target: 'D18', weight: 15 },
+  { source: 'D10', target: 'E9', weight: 18 },
+  { source: 'D10', target: 'P5', weight: 21 },
+
+  // === QUIET BRIDGES (low degree, high cross-team ratio) ===
+  // D6 Casey Wright — 3 connections, 2 cross-team (67%)
+  { source: 'D6', target: 'D5', weight: 33 },
+  { source: 'D6', target: 'R3', weight: 24 },
+  { source: 'D6', target: 'E7', weight: 18 },
+  // O3 Robin Adler — 4 connections, 3 cross-team (75%)
+  { source: 'O3', target: 'O4', weight: 27 },
   { source: 'O3', target: 'E8', weight: 18 },
-  { source: 'O3', target: 'E9', weight: 15 },
-  { source: 'O4', target: 'P7', weight: 24 },
-  { source: 'O5', target: 'D7', weight: 18 },
-  { source: 'O6', target: 'E14', weight: 12 },
-  // Isolated individuals
-  { source: 'D4', target: 'D1', weight: 9 },
-  { source: 'D16', target: 'D9', weight: 6 },
+  { source: 'O3', target: 'R5', weight: 15 },
+  { source: 'O3', target: 'D15', weight: 12 },
+  // P3 Lucas Huang — 3 connections, 2 cross-team (67%)
+  { source: 'P3', target: 'P2', weight: 27 },
+  { source: 'P3', target: 'E3', weight: 15 },
+  { source: 'P3', target: 'D3', weight: 12 },
+  // R7 Vera Ivanovic — 3 connections, 2 cross-team (67%)
+  { source: 'R7', target: 'R8', weight: 33 },
+  { source: 'R7', target: 'D13', weight: 18 },
+  { source: 'R7', target: 'P6', weight: 12 },
+  // E14 Dani Okoye — 4 connections, 3 cross-team (75%)
+  { source: 'E14', target: 'E15', weight: 18 },
+  { source: 'E14', target: 'P9', weight: 12 },
+  { source: 'E14', target: 'O6', weight: 12 },
+  { source: 'E14', target: 'D17', weight: 9 },
+  // O5 Dana Kemp — 3 connections, 2 cross-team (67%)
+  { source: 'O5', target: 'O4', weight: 21 },
+  { source: 'O5', target: 'D8', weight: 15 },
+  // P6 Clara Fontaine — 3 connections, 2 cross-team (67%)
+  { source: 'P6', target: 'P5', weight: 21 },
+  { source: 'P6', target: 'D13', weight: 18 },
+  // D15 Sage Ramirez — 3 connections, 2 cross-team (67%)
+  { source: 'D15', target: 'D14', weight: 27 },
+  { source: 'D15', target: 'E10', weight: 9 },
+  // R4 Omar Farid — 3 connections, 2 cross-team (67%)
+  { source: 'R4', target: 'R5', weight: 36 },
+  { source: 'R4', target: 'D8', weight: 24 },
+
+  // === AT RISK (low degree, low cross-team ratio) ===
+  // D4 Sam Torres — 2 connections, 0 cross-team (0%)
+  { source: 'D4', target: 'D3', weight: 21 },
+  { source: 'D4', target: 'D16', weight: 6 },
+  // D9 Quinn Foster — 2 connections, 0 cross-team (0%)
+  { source: 'D9', target: 'D8', weight: 18 },
+  { source: 'D9', target: 'D12', weight: 9 },
+  // D12 Skyler Okafor — 2 connections, 0 cross-team (0%)
+  { source: 'D12', target: 'D11', weight: 15 },
+  // D16 Blake Herrera — 2 connections, 0 cross-team (0%)
+  // (already linked to D4 and D9 via D15→D16 not present, uses D4)
+  // E8 Theo Nakamura — 2 connections, 1 cross-team (50% — borderline)
+  { source: 'E8', target: 'E7', weight: 21 },
+  // E12 Caleb Russo — 2 connections, 0 cross-team (0%)
+  { source: 'E12', target: 'E11', weight: 15 },
   { source: 'E12', target: 'E15', weight: 9 },
-  { source: 'R6', target: 'R3', weight: 9 },
+  // E15 Leo Chang — 2 connections, 0 cross-team (0%)
+  // (already linked via E14 and E12)
+  // R6 Aiden Ng — 2 connections, 0 cross-team (0%)
+  { source: 'R6', target: 'R5', weight: 18 },
+  { source: 'R6', target: 'R9', weight: 12 },
+  // R9 Amara Osei — 2 connections, 0 cross-team (0%)
+  { source: 'R9', target: 'R8', weight: 24 },
+  // P7 Ravi Kapoor — 3 connections, 0 cross-team (0%)
+  { source: 'P7', target: 'P6', weight: 15 },
+  { source: 'P7', target: 'P9', weight: 12 },
+  { source: 'P7', target: 'O4', weight: 24 },
+  // O6 Nico Bianchi — 3 connections, 1 cross-team (33%)
+  { source: 'O6', target: 'O4', weight: 15 },
+  { source: 'O6', target: 'O5', weight: 33 },
+
+  // === MODERATE / MID-CHART ===
+  // D3 Jordan Kim — 4 connections, 1 cross-team (25%)
+  { source: 'D3', target: 'R2', weight: 21 },
+  // D5 Riley Nguyen — 4 connections, 1 cross-team (25%)
+  { source: 'D5', target: 'E4', weight: 9 },
+  // D8 Harper Jones — 4 connections, 2 cross-team (50%)
+  // (already linked: D7, D9, R4, O5)
+  // D11 Drew Sato — 4 connections, 1 cross-team (25%)
+  // (already linked: D10, D12, D18, E13)
+  // D13 Reese Andersen — 5 connections, 2 cross-team (40%)
+  // (already linked: D2, D5→not here, D10, R7, P6)
+  // D14 Jamie Volkov — 4 connections, 1 cross-team (25%)
+  // (already linked: D2, D15, D13→not direct, P8)
+  { source: 'D14', target: 'D13', weight: 36 },
+  // D17 Finley Cho — 3 connections, 1 cross-team (33%)
+  { source: 'D17', target: 'D18', weight: 33 },
+  // D18 Rowan Beck — 4 connections, 0 cross-team (0%)
+  { source: 'D18', target: 'D11', weight: 24 },
+  // E2 Liam O'Brien — 4 connections, 1 cross-team (25%)
+  { source: 'E2', target: 'E4', weight: 24 },
+  // E3 Zoe Martinez — 4 connections, 2 cross-team (50%)
+  { source: 'E3', target: 'E5', weight: 27 },
+  // E4 Noah Park — 3 connections, 1 cross-team (33%)
+  { source: 'E4', target: 'E5', weight: 18 },
+  // E5 Ava Johnson — 2 connections, 0 cross-team (0%)
+  // (already linked: E3, E4)
+  // E7 Isla Fernandez — 3 connections, 1 cross-team (33%)
+  // (already linked: E6, E8, D6)
+  // E9 Nadia Petrov — 5 connections, 2 cross-team (40%)
+  { source: 'E9', target: 'E10', weight: 33 },
+  // E10 Oscar Lindqvist — 3 connections, 1 cross-team (33%)
+  { source: 'E10', target: 'E11', weight: 27 },
+  // E11 Fatima Al-Hassan — 3 connections, 0 cross-team (0%)
+  // (already linked: E6, E10, E12)
+  // P2 Olivia Reed — 5 connections, 2 cross-team (40%)
+  // (already linked: P1, P3, P8, D1, R1 — but R1 link is above)
+  // P4 Mia Johansson — 4 connections, 2 cross-team (50%)
+  { source: 'P4', target: 'P5', weight: 33 },
+  // P5 Isaac Delgado — 4 connections, 1 cross-team (25%)
+  // (already linked: P4, P6, P8, D10)
+  // P9 Tomas Silva — 4 connections, 1 cross-team (25%)
+  // (already linked: P8, P7, E14, D17→not direct)
+  // R2 Kai Nakamura — 3 connections, 1 cross-team (33%)
+  { source: 'R2', target: 'R3', weight: 24 },
+  // R3 Emma Davis — 3 connections, 1 cross-team (33%)
+  // (already linked: R1, R2, D6)
+  // R5 Lena Kowalski — 3 connections, 1 cross-team (33%)
+  // (already linked: R4, R6, O3)
+  // R8 Jun Watanabe — 3 connections, 0 cross-team (0%)
+  // (already linked: R7, R9)
+  // O2 Taylor Smith — 4 connections, 2 cross-team (50%)
+  { source: 'O2', target: 'O3', weight: 24 },
+  { source: 'O2', target: 'P2', weight: 21 },
+  // O4 Jesse Moreau — 5 connections, 1 cross-team (20%)
+  // (already linked: O1, O3, O5, O6, P7)
 ];
 
 // Quarterly data (simplified subsets)
