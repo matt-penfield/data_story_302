@@ -415,7 +415,7 @@ function generateInsights(links, nodes) {
   const lowConnection = sorted.filter(([, count]) => count <= 2);
   const isolated = lowConnection.map(([id]) => people.find(p => p.id === id)).filter(Boolean);
 
-  // Single points of failure: nodes that if removed would disconnect clusters
+  // Critical connectors: nodes whose removal would disconnect clusters
   const bridgeNodes = sorted.filter(([id, count]) => {
     if (count < 4) return false;
     const p = people.find(pp => pp.id === id);
@@ -441,8 +441,8 @@ function generateInsights(links, nodes) {
     `<strong>Most external team:</strong> ${mostExternal.team} — ${Math.round(mostExternal.ratio * 100)}% of their connections are cross-team (${mostExternal.count} links)`,
     `<strong>Most insular team:</strong> ${leastExternal.team} — only ${Math.round(leastExternal.ratio * 100)}% cross-team (${leastExternal.count} links)`,
     bridgeNodes.length > 0
-      ? `<strong>Single points of failure:</strong> ${bridgeNodes.map(p => p.name).join(', ')} — each bridges 3+ teams`
-      : '<strong>No single points of failure</strong> detected',
+      ? `<strong>Critical connectors:</strong> ${bridgeNodes.map(p => p.name).join(', ')} — each bridges 3+ teams`
+      : '<strong>No critical connectors</strong> detected',
     isolated.length > 0
       ? `<strong>At risk of isolation:</strong> ${isolated.map(p => `${p.name} (${p.team})`).join(', ')} — ≤2 connections each`
       : '<strong>No isolated individuals</strong> detected',
