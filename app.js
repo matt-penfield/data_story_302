@@ -233,6 +233,7 @@ tabs.forEach(tab => {
     tab.classList.add('active');
     document.getElementById(tab.dataset.view).classList.add('active');
     if (tab.dataset.view === 'heatmap') buildHeatmap();
+    if (tab.dataset.view === 'quadrant') buildQuadrant();
   });
 });
 
@@ -763,6 +764,232 @@ function buildMiniNetwork(svgId, density) {
     .attr('cy', d => d.y)
     .attr('r', 4)
     .attr('fill', d => teamColors[d.team]);
+}
+
+// ============================================================
+// Collaboration Profile (Quadrant Chart)
+// ============================================================
+
+function buildQuadrant() {
+  const container = document.getElementById('quadrant-chart');
+  container.innerHTML = '';
+
+  const margin = { top: 40, right: 30, bottom: 50, left: 60 };
+  const width = container.clientWidth - margin.left - margin.right;
+  const height = 560 - margin.top - margin.bottom;
+
+  // Compute per-person metrics
+  const metrics = people.map(p => {
+    const edges = interactions.filter(l => l.source === p.id || l.target === p.id);
+    const crossEdges = edges.filter(l => {
+      const otherId = l.source === p.id ? l.target : l.source;
+      const other = people.find(pp => pp.id === otherId);
+      return other && other.team !== p.team;
+    });
+    return {
+      ...p,
+      degree: edges.length,
+      crossTeamRatio: edges.length > 0 ? crossEdges.length / edges.length : 0,
+      totalWeight: edges.reduce((sum, e) => sum + e.weight, 0),
+      crossEdgeCount: crossEdges.length
+    };
+  });
+
+  const maxDegree = d3.max(metrics, d => d.degree);
+  const medianDegree = d3.median(metrics, d => d.degree);
+  const medianRatio = 0.5;
+
+  const svg = d3.select(container)
+    .append('svg')
+    .attr('width', width + margin.left + margin.right)
+    .attr('height', height + margin.top + margin.bottom)
+    .append('g')
+    .attr('transform', `translate(${margin.left},${margin.top})`);
+
+  const x = d3.scaleLinear().domain([0, maxDegree + 1]).range([0, width]);
+  const y = d3.scaleLinear().domain([0, 1]).range([height, 0]);
+  const r = d3.scaleSqrt().domain([0, d3.max(metrics, d => d.totalWeight)]).range([4, 14]);
+
+  // Add jitter to prevent exact overlaps
+  const jitterSeed = (id) => {
+    let hash = 0;
+    for (let i = 0; i < id.length; i++) hash = ((hash << 5) - hash) + id.charCodeAt(i);
+    return (hash % 100) / 100; // 0–1 deterministic per person
+  };
+  const jitterX = 12;
+  const jitterY = 10;
+  metrics.forEach(d => {
+    const seed = jitterSeed(d.id);
+    d.jx = (seed - 0.5) * jitterX;
+    d.jy = (seed * 7 % 1 - 0.5) * jitterY;
+  });
+
+  // Quadrant backgrounds
+  const midX = x(medianDegree);
+  const midY = y(medianRatio); // SVG y for the 50% line
+
+  const quadrants = [
+    { x: 0, y: midY, w: midX, h: height - midY, color: '#dc2626', label: 'At Risk', lx: 10, ly: height - midY - 10 },
+    { x: midX, y: midY, w: width - midX, h: height - midY, color: '#d97706', label: 'Internal Anchors', lx: 10, ly: height - midY - 10 },
+    { x: 0, y: 0, w: midX, h: midY, color: '#7c3aed', label: 'Quiet Bridges', lx: 10, ly: 18 },
+    { x: midX, y: 0, w: width - midX, h: midY, color: '#059669', label: 'Critical Connectors', lx: 10, ly: 18 },
+  ];
+
+  quadrants.forEach(q => {
+    svg.append('rect')
+      .attr('class', 'quadrant-region')
+      .attr('x', q.x)
+      .attr('y', q.y)
+      .attr('width', q.w)
+      .attr('height', q.h)
+      .attr('fill', q.color);
+
+    svg.append('text')
+      .attr('class', 'quadrant-label')
+      .attr('x', q.x + q.lx)
+      .attr('y', q.y + q.ly)
+      .attr('fill', q.color)
+      .text(q.label);
+  });
+
+  // Midpoint divider lines
+  svg.append('line')
+    .attr('x1', x(medianDegree)).attr('x2', x(medianDegree))
+    .attr('y1', 0).attr('y2', height)
+    .attr('stroke', '#ccc').attr('stroke-dasharray', '4,4');
+
+  svg.append('line')
+    .attr('x1', 0).attr('x2', width)
+    .attr('y1', y(medianRatio)).attr('y2', y(medianRatio))
+    .attr('stroke', '#ccc').attr('stroke-dasharray', '4,4');
+
+  // Axes
+  svg.append('g')
+    .attr('transform', `translate(0,${height})`)
+    .call(d3.axisBottom(x).ticks(8))
+    .selectAll('text').attr('class', 'axis-label');
+
+  svg.append('g')
+    .call(d3.axisLeft(y).ticks(5).tickFormat(d => Math.round(d * 100) + '%'))
+    .selectAll('text').attr('class', 'axis-label');
+
+  // Axis labels
+  svg.append('text')
+    .attr('class', 'axis-label')
+    .attr('x', width / 2)
+    .attr('y', height + 40)
+    .attr('text-anchor', 'middle')
+    .text('Total Connections →');
+
+  svg.append('text')
+    .attr('class', 'axis-label')
+    .attr('x', -height / 2)
+    .attr('y', -45)
+    .attr('text-anchor', 'middle')
+    .attr('transform', 'rotate(-90)')
+    .text('Cross-Team Ratio →');
+
+  // Dots
+  const dots = svg.selectAll('.quadrant-dot')
+    .data(metrics)
+    .join('circle')
+    .attr('class', 'quadrant-dot')
+    .attr('cx', d => x(d.degree) + d.jx)
+    .attr('cy', d => y(d.crossTeamRatio) + d.jy)
+    .attr('r', d => r(d.totalWeight))
+    .attr('fill', d => teamColors[d.team])
+    .attr('opacity', 0.85)
+    .on('mouseover', (event, d) => {
+      dots.classed('dimmed', dd => dd.id !== d.id);
+      showTooltip(event, `<strong>${d.name}</strong><span class="tt-meta">${d.team} · ${d.role}</span>
+        <ul>
+          <li>${d.degree} connections</li>
+          <li>${Math.round(d.crossTeamRatio * 100)}% cross-team</li>
+          <li>${d.totalWeight} interaction days</li>
+        </ul>`);
+    })
+    .on('mousemove', (event, d) => {
+      tooltip.style.left = event.clientX + 12 + 'px';
+      tooltip.style.top = event.clientY - 8 + 'px';
+    })
+    .on('mouseout', () => {
+      dots.classed('dimmed', false);
+      hideTooltip();
+    });
+
+  generateQuadrantInsights(metrics, medianDegree, medianRatio);
+}
+
+function generateQuadrantInsights(metrics, medianDegree, medianRatio) {
+  const list = document.getElementById('quadrant-insight-list');
+  list.innerHTML = '';
+
+  // Classify into quadrants
+  const quadrantMap = {
+    'Critical Connectors': [],
+    'Internal Anchors': [],
+    'Quiet Bridges': [],
+    'At Risk': []
+  };
+
+  metrics.forEach(d => {
+    if (d.degree >= medianDegree && d.crossTeamRatio >= medianRatio) {
+      quadrantMap['Critical Connectors'].push(d);
+    } else if (d.degree >= medianDegree && d.crossTeamRatio < medianRatio) {
+      quadrantMap['Internal Anchors'].push(d);
+    } else if (d.degree < medianDegree && d.crossTeamRatio >= medianRatio) {
+      quadrantMap['Quiet Bridges'].push(d);
+    } else {
+      quadrantMap['At Risk'].push(d);
+    }
+  });
+
+  // Burnout risk: high degree + high cross-team + high weight
+  const burnoutRisk = metrics
+    .filter(d => d.degree >= medianDegree && d.crossTeamRatio >= medianRatio)
+    .sort((a, b) => b.totalWeight - a.totalWeight)
+    .slice(0, 3);
+
+  // Team breakdown per quadrant
+  function teamBreakdown(arr) {
+    const counts = {};
+    arr.forEach(d => { counts[d.team] = (counts[d.team] || 0) + 1; });
+    return Object.entries(counts).map(([t, c]) => `${t} (${c})`).join(', ');
+  }
+
+  const insights = [
+    `<strong>Critical Connectors (${quadrantMap['Critical Connectors'].length}):</strong> ${quadrantMap['Critical Connectors'].map(d => d.name).join(', ') || 'None'}`,
+    `<strong>Internal Anchors (${quadrantMap['Internal Anchors'].length}):</strong> ${quadrantMap['Internal Anchors'].map(d => d.name).join(', ') || 'None'}`,
+    `<strong>Quiet Bridges (${quadrantMap['Quiet Bridges'].length}):</strong> ${quadrantMap['Quiet Bridges'].map(d => d.name).join(', ') || 'None'}`,
+    `<strong>At Risk (${quadrantMap['At Risk'].length}):</strong> ${quadrantMap['At Risk'].map(d => d.name).join(', ') || 'None'}`,
+  ];
+
+  if (burnoutRisk.length > 0) {
+    insights.push(`<strong>Burnout watch:</strong> ${burnoutRisk.map(d => `${d.name} (${d.totalWeight} days)`).join(', ')} — highest workload among critical connectors`);
+  }
+
+  // Actions
+  if (quadrantMap['At Risk'].length > 0) {
+    insights.push(`<strong>Action — At Risk:</strong> Consider pairing ${quadrantMap['At Risk'][0].name} with a senior cross-team connector to broaden exposure`);
+  }
+  if (quadrantMap['Quiet Bridges'].length > 0) {
+    insights.push(`<strong>Action — Quiet Bridges:</strong> ${quadrantMap['Quiet Bridges'][0].name} maintains cross-team links with few connections — recognize and protect this role`);
+  }
+  if (quadrantMap['Internal Anchors'].length > 0) {
+    insights.push(`<strong>Action — Internal Anchors:</strong> ${quadrantMap['Internal Anchors'][0].name} is well-connected internally — create opportunities for cross-team collaboration`);
+  }
+
+  // Team concentration
+  const atRiskTeams = teamBreakdown(quadrantMap['At Risk']);
+  if (atRiskTeams) {
+    insights.push(`<strong>At Risk by team:</strong> ${atRiskTeams}`);
+  }
+
+  insights.forEach(text => {
+    const li = document.createElement('li');
+    li.innerHTML = text;
+    list.appendChild(li);
+  });
 }
 
 // ============================================================
