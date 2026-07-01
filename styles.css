@@ -191,11 +191,11 @@ main {
 }
 
 .weight-line.medium {
-  height: 3px;
+  height: 4px;
 }
 
 .weight-line.thick {
-  height: 6px;
+  height: 10px;
 }
 
 /* Chart container */
