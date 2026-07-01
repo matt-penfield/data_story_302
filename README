@@ -1,1 +1,48 @@
-init readme
+# Who Talks to Whom
+
+A data visualization exploring collaboration patterns across design teams during Q2 2026. Built as a single-page app with vanilla HTML, CSS, and JavaScript (D3.js).
+
+## What It Shows
+
+Three interactive views of how 57 people across 5 teams connect:
+
+1. **Network Graph** — Force-directed graph where lines connect people who collaborated. Thicker lines = more days working together. Hover to highlight individual connections; hover team names in the legend to filter.
+
+2. **Team Heatmap** — Shows total collaboration days between each pair of teams. Quickly surfaces which teams are tightly linked and which rarely interact.
+
+3. **Collaboration Profile** — Beeswarm chart grouping people by team. Height shows what % of their work crosses team boundaries. Bigger circles = more total collaboration days.
+
+Each view includes an analysis panel with plain-language insights and suggestions.
+
+## Running Locally
+
+Open `index.html` in any modern browser. No build step, no server required.
+
+```
+# Or use a local server if you prefer:
+npx serve .
+```
+
+## Files
+
+| File | Purpose |
+|------|---------|
+| `index.html` | App shell — header, tabs, chart containers, footer |
+| `styles.css` | All styling (CSS custom properties, grid layout) |
+| `app.js` | Data, D3 visualizations, analysis logic |
+| `BRIEF.md` | Original project brief and design intent |
+
+## Data
+
+All data is synthetic and embedded in `app.js`. It models:
+- 57 people across 5 teams (Design, Engineering, Product, Research, Ops)
+- ~120 collaboration edges with weights representing "days connected" over 65 working days
+- No real names or actual communication content
+
+## Dependencies
+
+- [D3.js v7](https://d3js.org/) — loaded via CDN, no install needed
+
+## Browser Support
+
+Any modern browser (Chrome, Firefox, Safari, Edge). No IE support.
