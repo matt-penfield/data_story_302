@@ -851,7 +851,7 @@ function buildBeeswarm() {
   const container = document.getElementById('beeswarm-chart');
   container.innerHTML = '';
 
-  const margin = { top: 30, right: 30, bottom: 50, left: 55 };
+  const margin = { top: 30, right: 105, bottom: 70, left: 55 };
   const width = container.clientWidth - margin.left - margin.right;
   const height = 560 - margin.top - margin.bottom;
 
@@ -891,7 +891,15 @@ function buildBeeswarm() {
     .force('collide', d3.forceCollide(d => r(d.totalWeight) + 2))
     .stop();
 
-  for (let i = 0; i < 120; i++) simulation.tick();
+  // Enforce boundaries during each tick so collide force respects them
+  for (let i = 0; i < 200; i++) {
+    simulation.tick();
+    metrics.forEach(d => {
+      const rad = r(d.totalWeight);
+      d.y = Math.max(rad, Math.min(height - rad, d.y));
+      d.x = Math.max(x(d.team) + rad, Math.min(x(d.team) + x.bandwidth() - rad, d.x));
+    });
+  }
 
   // 50% reference line
   svg.append('line')
@@ -900,17 +908,17 @@ function buildBeeswarm() {
     .attr('stroke', '#ccc').attr('stroke-dasharray', '5,4').attr('stroke-width', 1);
 
   svg.append('text')
-    .attr('x', width - 4)
-    .attr('y', y(0.5) - 8)
-    .attr('text-anchor', 'end')
+    .attr('x', width + 8)
+    .attr('y', y(0.5) - 6)
+    .attr('text-anchor', 'start')
     .attr('font-size', '10px')
     .attr('fill', '#999')
     .text('more cross-team ↑');
 
   svg.append('text')
-    .attr('x', width - 4)
-    .attr('y', y(0.5) + 16)
-    .attr('text-anchor', 'end')
+    .attr('x', width + 8)
+    .attr('y', y(0.5) + 14)
+    .attr('text-anchor', 'start')
     .attr('font-size', '10px')
     .attr('fill', '#999')
     .text('more within-team ↓');
@@ -931,7 +939,7 @@ function buildBeeswarm() {
 
   // Team column labels
   svg.append('g')
-    .attr('transform', `translate(0,${height + 20})`)
+    .attr('transform', `translate(0,${height + 35})`)
     .selectAll('text')
     .data(teams)
     .join('text')
