@@ -16,7 +16,7 @@
   <nav class="view-tabs">
     <button class="tab active" data-view="network">Network Graph</button>
     <button class="tab" data-view="heatmap">Team Heatmap</button>
-    <button class="tab" data-view="quadrant">Collaboration Profile</button>
+    <button class="tab" data-view="beeswarm">Collaboration Profile</button>
   </nav>
 
   <main>
@@ -55,16 +55,16 @@
       </div>
     </section>
 
-    <section id="quadrant" class="view">
+    <section id="beeswarm" class="view">
       <div class="view-header">
         <h2>Collaboration Profile</h2>
       </div>
-      <p class="view-description">Each dot is one person. The further right they are, the more people they work with. The higher up, the more of those connections are outside their own team. Bigger dots mean more total collaboration days. The four quadrants help identify who’s overloaded, who’s isolated, and who’s quietly holding teams together.</p>
+      <p class="view-description">Each circle is one person, grouped by team. The higher up someone is, the more of their work happens with people outside their own team. Bigger circles mean more total days connected. People near the bottom work mostly within their group.</p>
       <div class="view-layout">
-        <div class="chart-container" id="quadrant-chart"></div>
-        <aside class="analysis-panel" id="quadrant-analysis">
+        <div class="chart-container" id="beeswarm-chart"></div>
+        <aside class="analysis-panel" id="beeswarm-analysis">
           <h3>Analysis</h3>
-          <ul id="quadrant-insight-list"></ul>
+          <ul id="beeswarm-insight-list"></ul>
         </aside>
       </div>
     </section>
