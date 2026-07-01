@@ -926,15 +926,15 @@ function buildBeeswarm() {
   // Y-axis
   svg.append('g')
     .call(d3.axisLeft(y).ticks(5).tickFormat(d => Math.round(d * 100) + '%'))
-    .selectAll('text').attr('font-size', '10px').attr('fill', '#666');
+    .selectAll('text').attr('font-size', '12px').attr('fill', '#666');
 
   svg.append('text')
     .attr('x', -height / 2)
-    .attr('y', -40)
+    .attr('y', -42)
     .attr('text-anchor', 'middle')
     .attr('transform', 'rotate(-90)')
-    .attr('font-size', '11px')
-    .attr('fill', '#666')
+    .attr('font-size', '13px')
+    .attr('fill', '#555')
     .text('Cross-team work');
 
   // Team column labels
@@ -945,8 +945,8 @@ function buildBeeswarm() {
     .join('text')
     .attr('x', d => x(d) + x.bandwidth() / 2)
     .attr('text-anchor', 'middle')
-    .attr('font-size', '11px')
-    .attr('font-weight', '500')
+    .attr('font-size', '13px')
+    .attr('font-weight', '600')
     .attr('fill', d => teamColors[d])
     .text(d => d);
 
