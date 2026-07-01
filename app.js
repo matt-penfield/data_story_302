@@ -876,12 +876,18 @@ function buildQuadrant() {
   const medianDegree = d3.median(metrics, d => d.degree);
   const medianRatio = 0.5;
 
-  const svg = d3.select(container)
+  const svgEl = d3.select(container)
     .append('svg')
     .attr('width', width + margin.left + margin.right)
-    .attr('height', height + margin.top + margin.bottom)
-    .append('g')
+    .attr('height', height + margin.top + margin.bottom);
+
+  const svg = svgEl.append('g')
     .attr('transform', `translate(${margin.left},${margin.top})`);
+
+  // Zoom
+  svgEl.call(d3.zoom().scaleExtent([0.5, 5]).on('zoom', (event) => {
+    svg.attr('transform', event.transform);
+  }));
 
   const x = d3.scaleLinear().domain([0, maxDegree + 1]).range([0, width]);
   const y = d3.scaleLinear().domain([0, 1]).range([height, 0]);
